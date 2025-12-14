@@ -1,14 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// 🧾 1. DEFINIR EL TIPO DE MASCOTA
 interface Pet {
+  id: string;
   name: string;
-  age: string;
   breed: string;
-  weight: string;
+  age: number;
+  weight: number;
 }
 
-// 🧠 2. DEFINIR EL ESTADO INICIAL
 interface PetsState {
   petsList: Pet[];
 }
@@ -17,16 +16,18 @@ const initialState: PetsState = {
   petsList: [],
 };
 
-// 🧩 3. CREAR EL SLICE CON TIPOS
 const petsSlice = createSlice({
   name: 'pets',
   initialState,
   reducers: {
+    setPets: (state, action: PayloadAction<Pet[]>) => {
+      state.petsList = action.payload;
+    },
     addPet: (state, action: PayloadAction<Pet>) => {
       state.petsList.push(action.payload);
     },
   },
 });
 
-export const { addPet } = petsSlice.actions;
+export const { addPet, setPets } = petsSlice.actions;
 export default petsSlice.reducer;
